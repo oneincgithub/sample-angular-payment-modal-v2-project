@@ -12,6 +12,11 @@ declare var OneInc: any;
         Instant Payment
       </div>
       <div class="card-body">
+        <p><strong>Important:</strong></p>
+        <p>
+          Replace the 'one-inc-js' placeholder in 'index.html' file with the One
+          Inc Js library cdn before proceeding
+        </p>
         <input
           class="w-100 mb-1"
           type="text"
@@ -19,13 +24,12 @@ declare var OneInc: any;
           [(ngModel)]="baseApiUrl"
         />
         <input
-          class="w-100 mb-1"
+          class="w-100 mb-4"
           type="text"
           type="text"
           placeholder="Authentication Key"
           [(ngModel)]="portalOneAuthKey"
         />
-        <p>To pay your amount due any time click the following button:</p>
         <div class="text-center">
           <button
             id="see-in-action"
