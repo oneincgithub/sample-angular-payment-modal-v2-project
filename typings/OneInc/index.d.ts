@@ -13,7 +13,8 @@ declare namespace "OneInc" {
     SavePaymentMethod = "savePaymentMethod",
     ManagePaymentMethods = "managePaymentMethods",
     EnrollAutoPay = "enrollAutoPay",
-    QuickPay = "quickPay"
+        QuickPay = "quickPay",
+        ManageNotifications = "manageNotifications"
   }
   export enum PortalEventType {
     Error = "portalOne.error",
@@ -36,7 +37,7 @@ declare namespace "OneInc" {
     Command: "Close" | "UpdateContentHeight" | string;
     Data: {
       acknowledge: Function;
-      height?: string;
+      height?: number;
       merchantIdentifier?: string;
     };
     Message: PortalEventType;
@@ -44,10 +45,12 @@ declare namespace "OneInc" {
   export class PortalParams {
     sessionId?: string;
     accessTokenId?: string;
-    displayMode?: "inline" | string;
+    displayMode?: 'inline' | string;
     allowClosing?: boolean;
     paymentCategory: PaymentCategory;
     operation?: OperationCategory;
+    loadingIndication?: boolean;
+    preventBackgroundScroll?: boolean;
     [propName: string]: any;
   }
 
@@ -62,6 +65,7 @@ declare namespace "OneInc" {
     managePaymentMethods(params: PortalParams): void;
     enrollAutoPay(params: PortalParams): void;
     quickPay(params: PortalParams): void;
+    manageNotifications(params: PortalParams): void;
     run(params: PortalParams): void;
     cleanup(): void;
   }
