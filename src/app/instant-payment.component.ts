@@ -2,7 +2,6 @@ import { HttpClient } from "@angular/common/http";
 import { Component, OnInit } from "@angular/core";
 import { throwError } from "rxjs";
 import { catchError, map, take } from "rxjs/operators";
-import { Constants } from "./constants";
 import { CreateSessionResponse } from "./create-session.response";
 declare var OneInc: any;
 @Component({
@@ -10,9 +9,22 @@ declare var OneInc: any;
   template: `
     <div class="card">
       <div class="card-header">
-        <i class="fa fa-credit-card" aria-hidden="true"></i> Instant Payment
+        Instant Payment
       </div>
       <div class="card-body">
+        <input
+          class="w-100 mb-1"
+          type="text"
+          placeholder="Base Api URL"
+          [(ngModel)]="baseApiUrl"
+        />
+        <input
+          class="w-100 mb-1"
+          type="text"
+          type="text"
+          placeholder="Authentication Key"
+          [(ngModel)]="portalOneAuthKey"
+        />
         <p>To pay your amount due any time click the following button:</p>
         <div class="text-center">
           <button
@@ -29,6 +41,9 @@ declare var OneInc: any;
 })
 export class InstantPaymentComponent implements OnInit {
   private portalOne: any;
+
+  public baseApiUrl: string;
+  public portalOneAuthKey: string;
   constructor(private readonly httpClient: HttpClient) {}
 
   ngOnInit(): void {}
@@ -50,11 +65,12 @@ export class InstantPaymentComponent implements OnInit {
   */
   private createSessionAndOpenModalWindow(): void {
     const container: HTMLElement = document.body;
-    this.httpClient
+    const url = this.httpClient
       .get(
-        Constants.baseApiUrl +
-          "Session/Create?portalOneAuthenticationKey=" +
-          Constants.portalOneAuthKey,
+        new URL(
+          "Session/Create?portalOneAuthenticationKey=" + this.portalOneAuthKey,
+          this.baseApiUrl
+        ).toString(),
 
         { responseType: "json" }
       )
